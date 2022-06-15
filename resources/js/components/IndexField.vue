@@ -1,33 +1,33 @@
 <template>
-    <span class="w-full">
+    <span class="w-full" style="max-width: 400px; display: flex; flex-wrap: wrap; gap: .25rem;">
         <span
             v-for="(value, option) in availableOptions"
             :key="option"
-            :class="optionClass(option)"
             :title="value"
-            class="inline-block rounded-full w-2 h-2 mr-1"
+            class="inline-block rounded-full w-2 h-2"
+            :style="optionStyle(option)"
         />
     </span>
 </template>
 
 <script>
 export default {
-    props: ['resourceName', 'field'],
+  props: ['resourceName', 'field'],
 
-    computed: {
-        availableOptions() {
-            return this.field.options
-        },
+  computed: {
+    availableOptions() {
+      return this.field.options
     },
+  },
 
-    methods: {
-        optionClass(option) {
-            return {
-                'bg-success': this.field.value ? this.field.value.includes(option) : false,
-                'bg-danger': this.field.value ? !this.field.value.includes(option) : true,
-            }
-        },
+  methods: {
+    optionStyle(option) {
+      const color  = this.field.value && this.field.value.includes(option) ? 'green' : 'red'
+      return {
+        'background': `rgba(var(--colors-${color}-500),var(--tw-text-opacity))`
+      }
     },
+  },
 
 }
 </script>
